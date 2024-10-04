@@ -16,33 +16,34 @@ const obj3 = {
   },
 };
 
-const OK = true
+const OK = true;
+const ERROR = false;
 
 const deepEqual = (actual, expected) => {
   const calculateDeep = (a, e) => {
     if (typeof a !== typeof e) {
-      return "";
+      return ERROR;
     }
 
     if (Array.isArray(a)) {
       if (a.length !== e.length) {
-        return "";
+        return ERROR;
       }
 
       for (let i = 0; i < a.length; i++) {
         const result = calculateDeep(a[i], e[i]);
         if (result !== OK) {
-          return result !== "" ? `${i}.${result}` : `${i}`;
+          return result !== ERROR ? `${i}.${result}` : `${i}`;
         }
       }
 
       return OK;
     }
 
-    if (typeof a === "object") {
+    if (typeof a === "object" && a !== null) {
       const result = calculateDeep(Object.keys(a), Object.keys(e));
       if (result !== OK) {
-        return "";
+        return ERROR;
       }
 
       const entries = Object.entries(a);
@@ -51,7 +52,7 @@ const deepEqual = (actual, expected) => {
         const expectedVal = e[key];
         const result = calculateDeep(val, expectedVal);
         if (result !== OK) {
-          return result !== "" ? `${key}.${result}` : key;
+          return result !== ERROR ? `${key}.${result}` : key;
         }
       }
 
@@ -62,7 +63,7 @@ const deepEqual = (actual, expected) => {
       return OK;
     }
 
-    return "";
+    return ERROR;
   };
 
   const result = calculateDeep(actual, expected);
