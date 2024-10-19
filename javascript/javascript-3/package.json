@@ -1,0 +1,19 @@
+{
+  "name": "javascript-3",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "prettier:fix": "prettier \"**/*.js\" --write",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "test:info": "node --experimental-vm-modules node_modules/jest/bin/jest.js --no-color 2>tdd-results.txt"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "prettier": "3.3.3"
+  },
+  "dependencies": {
+    "jest-environment-jsdom": "^29.7.0"
+  }
+}
